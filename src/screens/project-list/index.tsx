@@ -7,7 +7,6 @@ import * as qs from "qs";
 
 // npm start 访问.env.development npm run build 访问.env
 const apiUrl = process.env.REACT_APP_API_URL
-console.log(">>>apiUrl", apiUrl);
 
 export const ProjectListScreen = () => {
     const [param, setParam] = useState({
@@ -17,7 +16,7 @@ export const ProjectListScreen = () => {
     const [list, setList] = useState([]);
     const [users, setUsers] = useState([]); 
 
-    const debouncedParam = useDebounce(param, 2000);
+    const debouncedParam = useDebounce(param, 500);
 
     useEffect(() => {
         fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`).then(async response => {
@@ -33,9 +32,6 @@ export const ProjectListScreen = () => {
             }
         })
     })
-    console.log(">>>projects", list);
-    console.log(">>>users", users);
-    console.log(">>>param", param);
 
     return <div>
         <SearchPanel users={users} param={param} setParam={setParam}/>
